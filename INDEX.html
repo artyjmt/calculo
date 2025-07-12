@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Paso por Paso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+    body { background-color: #f0f4f8; }
+
+    header {
+      background-color: #2a4365;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header .logo { font-weight: bold; font-size: 24px; }
+
+    nav {
+      background-color: #4a5568;
+      color: white;
+      padding: 10px 30px;
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+    }
+
+    .container { display: flex; }
+
+    aside {
+      width: 220px;
+      background-color: white;
+      border-right: 1px solid #ccc;
+      padding: 20px;
+      height: calc(100vh - 100px);
+    }
+
+    aside h3 { margin-bottom: 20px; color: #2a4365; }
+    aside ul { list-style: none; }
+    aside li { margin: 10px 0; font-size: 15px; color: #2d3748; }
+
+    main {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .input-box {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 10px;
+      border: 1px solid #cbd5e0;
+      border-radius: 4px;
+    }
+
+    .buttons { margin-top: 15px; }
+    .buttons button {
+      margin-right: 10px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #4299e1;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .examples {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .examples h4 { margin-bottom: 10px; color: #2a4365; }
+    .examples ul { list-style: none; }
+    .examples li { margin: 8px 0; color: #2d3748; }
+
+    .go-button {
+      background-color: #2b6cb0;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      margin-left: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .upgrade-btn {
+      background-color: #68d391;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 12px;
+      margin-right: 10px;
+      color: #1a202c;
+      font-weight: bold;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #ebf8ff;
+      border: 1px solid #90cdf4;
+      border-radius: 6px;
+      color: #2b6cb0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Matematiqueshion</div>
+    <div>
+      <button class="upgrade-btn">todavia no hay nda</button>
+      <span style="font-size: 24px;">😺</span>
+    </div>
+  </header>
+
+  <nav>
+    <div>Derivadas</div>
+    <div>Integral</div>
+    <div>Integral por sustitución</div>
+    <div>Integral por partes</div>
+  </nav>
+
+  <div class="container">
+    <aside>
+      <h3>Temas archivados</h3>
+      <ul>
+        <li>Derivadas básicas</li>
+        <li>Regla del producto</li>
+        <li>Regla de la cadena</li>
+        <li>Integrales definidas</li>
+        <li>Trigonométricas</li>
+        <li>Por partes</li>
+        <li>Fracciones parciales</li>
+      </ul>
+
+<br>
+<h3>Participantes</h3>
+      <ul>
+        <li>Macias Herrera</li>
+        <li>Rizzo velez</li>
+        <li>Castro Ariel</li>
+        <li>Crespo Obed</li>
+      </ul>
+
+    </aside>
+
+    <main>
+      <div class="input-box">
+        <h3>Cálculo paso a paso</h3>
+        <input type="text" id="entrada" placeholder="Ingrese un problema">
+        <button class="go-button" onclick="resolver()">Ir</button>
+        <div class="buttons">
+          <button onclick="resolver()">Resolver</button>
+          <button onclick="borrar()">Borrar</button>
+          <button onclick="ejemplo()">Ejemplo aleatorio</button>
+          <button onclick="verPasos()">Ver pasos</button>
+          <button onclick="ayuda()">Ayuda</button>
+        </div>
+        <div id="resultado"></div>
+      </div>
+
+      <div class="examples">
+        <h4>Ejemplos</h4>
+        <ul>
+          <li>∫ x² dx</li>
+          <li>∫ sen(x) dx</li>
+          <li>∫ x * e^x dx</li>
+        </ul>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function resolver() {
+      const entrada = document.getElementById("entrada").value.trim();
+      const salida = document.getElementById("resultado");
+
+      if (entrada === "") {
+        salida.innerHTML = "Por favor, escribe una expresión.";
+        return;
+      }
+
+      salida.innerHTML = `
+        <strong>Resolviendo:</strong> ${entrada} <br><br>
+        <strong>Paso 1:</strong> Identificar el tipo de integral.<br>
+        <strong>Paso 2:</strong> Aplicar fórmula estándar.<br>
+        <strong>Paso 3:</strong> Resolver e indicar la constante de integración C.<br><br>
+        <strong>Resultado:</strong> (Simulado) ∫ ${entrada} dx = [resultado] + C
+      `;
+    }
+
+    function borrar() {
+      document.getElementById("entrada").value = "";
+      document.getElementById("resultado").innerHTML = "";
+    }
+
+    function ejemplo() {
+      const ejemplos = ["x^2", "sen(x)", "x * e^x"];
+      const random = ejemplos[Math.floor(Math.random() * ejemplos.length)];
+      document.getElementById("entrada").value = random;
+    }
+
+    function verPasos() {
+      alert("Esta opción mostrará todos los pasos de forma detallada en futuras versiones.");
+    }
+
+    function ayuda() {
+      alert("Ingresa una integral como 'x^2' o 'sen(x)' y haz clic en 'Resolver'.");
+    }
+  </script>
+
+</body>
+</html>
